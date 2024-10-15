@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -19,7 +20,7 @@ const cartRoutes = require('./routes/cart')
 
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/shopping-sam-app')
+mongoose.connect(process.env.DB_URL)
 .then(()=>{
     console.log("DB connected successfully")
 })
@@ -74,9 +75,8 @@ app.use(reviewRoutes);  //so that harr incoming request ke liye path check kiya 
 app.use(authRoutes);  //so that harr incoming request ke liye path check kiya jaae
 app.use(cartRoutes);  //so that harr incoming request ke liye path check kiya jaae
 
-
-
-app.listen(8080 , ()=>{
+const port=process.env.PORT
+app.listen(port , ()=>{
     console.log("server connected at port 8080")
 })
 
